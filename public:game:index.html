@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <title>MASS Empire</title>
+  <style>
+    html,body { margin:0; padding:0; background:#111; height:100%; overflow:hidden; }
+    #game { width:100vw; height:100vh; display:block; }
+    .hud { position:fixed; top:12px; left:12px; color:#fff; font:700 18px/1.2 system-ui; text-shadow:0 2px 4px rgba(0,0,0,.4);}
+    .btn { position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+           padding:14px 24px; border-radius:10px; border:none; background:#27ae60; color:#fff; font:700 18px system-ui; box-shadow:0 6px 18px rgba(0,0,0,.25);}
+  </style>
+</head>
+<body>
+  <div class="hud">Coins: <span id="coins">0</span></div>
+  <button id="tap" class="btn">Tap to Earn</button>
+  <canvas id="game"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.0/dist/phaser.min.js"></script>
+  <script>
+    // Basic clicker logic
+    let coins = 0;
+    const $coins = document.getElementById('coins');
+    document.getElementById('tap').onclick = () => { coins++; $coins.textContent = coins; };
+
+    // Parse Telegram params (optional)
+    const params = new URLSearchParams(location.search);
+    const uid = params.get('uid') || '';
+    const name = params.get('name') || '';
+
+    // Phaser background
+    const config = {
+      type: Phaser.AUTO,
+      backgroundColor: '#F7C04A',
+      scale: { mode: Phaser.Scale.RESIZE, autoCenter: Phaser.Scale.CENTER_BOTH, width: window.innerWidth, height: window.innerHeight },
+      scene: { preload, create }
+    };
+    new Phaser.Game(config);
+
+    function preload() {}
+    function create() {
+      const g = this.add.graphics();
+      // ground
+      g.fillStyle(0x1F7A8C, 1);
+      g.fillRect(0, this.scale.height*0.55, this.scale.width, this.scale.height*0.45);
+      // title
+      this.add.text(this.scale.width/2, this.scale.height*0.25, "MASS EMPIRE", { fontSize: 48, color: "#111", fontStyle:"bold" }).setOrigin(0.5);
+      this.add.text(this.scale.width/2, this.scale.height*0.33, "Business Tycoon Clicker", { fontSize: 22, color: "#222" }).setOrigin(0.5);
+      if (name) this.add.text(this.scale.width/2, this.scale.height*0.40, "Welcome " + decodeURIComponent(name), { fontSize: 16, color: "#333" }).setOrigin(0.5);
+    }
+  </script>
+</body>
+</html>
