@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MASS Empire</title>
+  <style>
+    body {
+      font-family: "Trebuchet MS", sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(180deg, #87ceeb, #ffcc00);
+      background-attachment: fixed;
+    }
+
+    /* City Skyline Effect */
+    body::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 200px;
+      background: url('https://i.ibb.co/fQ4jQYF/city-skyline.png') repeat-x;
+      background-size: contain;
+      opacity: 0.6;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #222;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+
+    /* Money Button */
+    button {
+      background: gold;
+      border: 3px solid #ff9900;
+      padding: 20px 40px;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #222;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0px 0px 20px rgba(255, 215, 0, 0.9);
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+      animation: glow 1.5s infinite alternate;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      box-shadow: 0px 0px 30px rgba(255, 215, 0, 1);
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.5); }
+      to { box-shadow: 0px 0px 35px rgba(255, 215, 0, 1); }
+    }
+
+    /* Score Panel */
+    #score {
+      font-size: 2em;
+      margin-top: 25px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <h1>💼 MASS Empire</h1>
+  <p>Tap the coin to expand your empire!</p>
+  <button onclick="increaseScore()">💰</button>
+  <div id="score">Balance: $0</div>
+
+  <script>
+    let balance = 0;
+    function increaseScore() {
+      balance += 10;
+      document.getElementById("score").innerText = "Balance: $" + balance;
+    }
+  </script>
+</body>
+</html>
